@@ -1,0 +1,5 @@
+-- Thêm cột vào bảng users
+ALTER TABLE users
+ADD COLUMN first_name VARCHAR(255) NULL AFTER username,
+ADD COLUMN last_name VARCHAR(255) NULL AFTER first_name,
+ADD COLUMN avatar VARCHAR(255) NULL AFTER last_name;

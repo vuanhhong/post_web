@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_post'])) {
             // Xóa bài viết khỏi database
             $delete_query = "DELETE FROM posts WHERE id = $post_id";
             if (mysqli_query($conn, $delete_query)) {
-                header('Location: ' . $baseUrl . '/index.php');
+                header('Location: /');
                 exit();
             } else {
                 $error = 'Xóa bài viết thất bại';
@@ -59,7 +59,7 @@ $post = mysqli_fetch_assoc($post_result);
 
 if (!$post) {
     // Nếu không tìm thấy bài viết thì quay về trang chủ
-    header('Location: index.php');
+    header('Location: /');
     exit();
 }
 
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
                 }
             }
 
-            header("Location: " . $baseUrl . "/src/views/post/post.php?id=$post_id");
+            header("Location: /post/$post_id");
             exit();
         } else {
             $error = 'Thêm bình luận thất bại';
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_comment'])) {
         if ($comment && ($comment['user_id'] == $user_id || isAdmin())) {
             $update_query = "UPDATE comments SET content = '$new_content' WHERE id = $comment_id";
             if (mysqli_query($conn, $update_query)) {
-                header("Location: " . $baseUrl . "/src/views/post/post.php?id=$post_id");
+                header("Location: /post/$post_id");
                 exit();
             } else {
                 $error = 'Cập nhật bình luận thất bại';
@@ -197,8 +197,15 @@ if (isset($_POST['action']) && isLoggedIn()) {
         }
     }
 
-    header("Location: post.php?id=$post_id");
-    exit();
+    // Refresh like/dislike counts so the page shows updated values without redirect
+    $counts_res = mysqli_query($conn, "SELECT 
+        (SELECT COUNT(*) FROM likes WHERE post_id = $post_id AND type = 'like') as like_count,
+        (SELECT COUNT(*) FROM likes WHERE post_id = $post_id AND type = 'dislike') as dislike_count");
+    if ($counts_res) {
+        $counts = mysqli_fetch_assoc($counts_res);
+        $post['like_count'] = $counts['like_count'];
+        $post['dislike_count'] = $counts['dislike_count'];
+    }
 }
 
 // Xử lý xóa bình luận
@@ -215,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_comment'])) {
         if ($comment && ($comment['user_id'] == $user_id || isAdmin())) {
             $delete_query = "DELETE FROM comments WHERE id = $comment_id";
             if (mysqli_query($conn, $delete_query)) {
-                header("Location: " . $baseUrl . "/src/views/post/post.php?id=$post_id");
+                header("Location: /post/$post_id");
                 exit();
             } else {
                 $error = 'Xóa bình luận thất bại';
@@ -254,8 +261,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_post'])) {
         $update_post_query = "UPDATE posts SET title = '$new_title', content = '$new_content', topic_id = " . ($valid_topic_id === null ? "NULL" : $valid_topic_id) . " WHERE id = $post_id";
 
         if (mysqli_query($conn, $update_post_query)) {
-
-            header("Location: " . $baseUrl . "/src/views/post/post.php?id=$post_id");
+            header("Location: /post/$post_id");
             exit();
         } else {
             $error = 'Cập nhật bài viết thất bại';
@@ -298,7 +304,7 @@ if (isLoggedIn() && isset($_POST['bookmark_post'])) {
         mysqli_query($conn, "INSERT INTO bookmarks (user_id, post_id, created_at) VALUES ($user_id, $post_id, NOW())");
     }
     // Sau khi bookmark xong, reload lại trang để cập nhật giao diện
-    header("Location: post.php?id=$post_id");
+    header("Location: /post/$post_id");
     exit();
 }
 

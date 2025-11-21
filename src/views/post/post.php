@@ -17,21 +17,21 @@
 
     <div class="container mt-4">
         <?php if ($error): ?>
-            <div class="alert alert-danger"><?php echo $error; ?></div>
+        <div class="alert alert-danger"><?php echo $error; ?></div>
         <?php endif; ?>
 
         <?php if ($success): ?>
-            <div class="alert alert-success"><?php echo $success; ?></div>
+        <div class="alert alert-success"><?php echo $success; ?></div>
         <?php endif; ?>
 
         <div class="card mb-4">
             <div class="card-body">
                 <?php if (isLoggedIn() && ($post['user_id'] == $_SESSION['user_id'] || isAdmin())): ?>
-                    <!-- Edit & Delete Post Buttons -->
-                    <div class="mb-3 d-flex gap-2">
-                        <button class="btn btn-warning" onclick="showEditPostModal()"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-danger" onclick="confirmDeletePost()"><i class="bi bi-trash"></i></button>
-                    </div>
+                <!-- Edit & Delete Post Buttons -->
+                <div class="mb-3 d-flex gap-2">
+                    <button class="btn btn-warning" onclick="showEditPostModal()"><i class="bi bi-pencil"></i></button>
+                    <button class="btn btn-danger" onclick="confirmDeletePost()"><i class="bi bi-trash"></i></button>
+                </div>
                 <?php endif; ?>
                 <h1 class="card-title"><?php echo htmlspecialchars($post['title']); ?></h1>
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -56,23 +56,23 @@
                 <div class="card-text"><?php echo $post['content']; ?></div>
 
                 <?php if (isLoggedIn()): ?>
-                    <div class="d-flex gap-2 mt-3">
-                        <form method="POST" action="" class="d-inline">
-                            <input type="hidden" name="action" value="like">
-                            <button type="submit" class="btn btn-outline-primary">
-                                <i class="bi bi-hand-thumbs-up"></i> <?php echo $post['like_count']; ?> Thích
-                            </button>
-                        </form>
-                        <form method="POST" action="" class="d-inline">
-                            <input type="hidden" name="action" value="dislike">
-                            <button type="submit" class="btn btn-outline-danger">
-                                <i class="bi bi-hand-thumbs-down"></i> <?php echo $post['dislike_count']; ?> Không thích
-                            </button>
-                        </form>
-                        <button class="btn btn-outline-secondary" onclick="sharePost()">
-                            <i class="bi bi-share"></i> Chia sẻ
+                <div class="d-flex gap-2 mt-3">
+                    <form method="POST" action="" class="d-inline">
+                        <input type="hidden" name="action" value="like">
+                        <button type="submit" class="btn btn-outline-primary">
+                            <i class="bi bi-hand-thumbs-up"></i> <?php echo $post['like_count']; ?> Thích
                         </button>
-                        <?php
+                    </form>
+                    <form method="POST" action="" class="d-inline">
+                        <input type="hidden" name="action" value="dislike">
+                        <button type="submit" class="btn btn-outline-danger">
+                            <i class="bi bi-hand-thumbs-down"></i> <?php echo $post['dislike_count']; ?> Không thích
+                        </button>
+                    </form>
+                    <button class="btn btn-outline-secondary" onclick="sharePost()">
+                        <i class="bi bi-share"></i> Chia sẻ
+                    </button>
+                    <?php
                         // Kiểm tra trạng thái đã bookmark chưa
                         $user_id = $_SESSION['user_id'];
                         $isBookmarked = false;
@@ -81,16 +81,16 @@
                             $isBookmarked = true;
                         }
                         ?>
-                        <form method="POST" action="" class="d-inline">
-                            <input type="hidden" name="bookmark_post" value="1">
-                            <button type="submit" class="btn btn-outline-success" <?php if ($isBookmarked)
+                    <form method="POST" action="" class="d-inline">
+                        <input type="hidden" name="bookmark_post" value="1">
+                        <button type="submit" class="btn btn-outline-success" <?php if ($isBookmarked)
                                                                                         echo 'disabled'; ?>>
-                                <i class="bi bi-bookmark<?php if ($isBookmarked)
+                            <i class="bi bi-bookmark<?php if ($isBookmarked)
                                                             echo '-fill'; ?>"></i>
-                                <?php echo $isBookmarked ? 'Đã lưu' : 'Lưu bài viết'; ?>
-                            </button>
-                        </form>
-                    </div>
+                            <?php echo $isBookmarked ? 'Đã lưu' : 'Lưu bài viết'; ?>
+                        </button>
+                    </form>
+                </div>
                 <?php endif; ?>
             </div>
         </div>
@@ -101,26 +101,26 @@
             </div>
             <div class="card-body">
                 <?php if (isLoggedIn()): ?>
-                    <form method="POST" action="" class="mb-4">
-                        <div class="mb-3">
-                            <textarea class="form-control" name="comment" rows="3" required
-                                placeholder="Viết bình luận..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Gửi bình luận</button>
-                    </form>
-                <?php else: ?>
-                    <div class="alert alert-info">
-                        Vui lòng <a href="login.php">đăng nhập</a> để bình luận
+                <form method="POST" action="" class="mb-4">
+                    <div class="mb-3">
+                        <textarea class="form-control" name="comment" rows="3" required
+                            placeholder="Viết bình luận..."></textarea>
                     </div>
+                    <button type="submit" class="btn btn-primary">Gửi bình luận</button>
+                </form>
+                <?php else: ?>
+                <div class="alert alert-info">
+                    Vui lòng <a href="login.php">đăng nhập</a> để bình luận
+                </div>
                 <?php endif; ?>
 
                 <div class="comments-list">
                     <?php while ($comment = mysqli_fetch_assoc($comments_result)): ?>
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h6 class="card-subtitle text-muted d-flex align-items-center">
-                                        <?php
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h6 class="card-subtitle text-muted d-flex align-items-center">
+                                    <?php
                                         // Hiển thị tác giả bình luận với ảnh đại diện và tên ưa thích
                                         $commentAuthorDisplayName = htmlspecialchars($comment['username']);
                                         if (!empty($comment['first_name']) && !empty($comment['last_name'])) {
@@ -132,30 +132,30 @@
                                         }
                                         $commentAvatarPath = $baseUrl . '/src/assets/dist/avatars/' . htmlspecialchars($comment['avatar'] ?? 'default_avatar.png');
                                         ?>
-                                        <img src="<?= $commentAvatarPath ?>" alt="Avatar" class="rounded-circle me-1"
-                                            style="width: 20px; height: 20px; object-fit: cover;">
-                                        <?= $commentAuthorDisplayName ?>
-                                        <?php if (isset($comment['role']) && $comment['role'] === 'admin'): ?><span
-                                                class="badge bg-danger ms-1">Admin</span><?php endif; ?>
-                                    </h6>
-                                    <small
-                                        class="text-muted"><?php echo date('d/m/Y H:i', strtotime($comment['created_at'])); ?></small>
-                                </div>
-                                <p class="card-text"><?php echo nl2br(htmlspecialchars($comment['content'])); ?></p>
-                                <?php if (isLoggedIn() && ($_SESSION['user_id'] == $comment['user_id'] || isAdmin())): ?>
-                                    <div class="btn-group mb-2">
-                                        <button class="btn btn-sm btn-outline-primary"
-                                            onclick="editComment(<?php echo $comment['id']; ?>, '<?php echo addslashes($comment['content']); ?>')"><i
-                                                class="bi bi-pencil"></i></button>
-                                        <button class="btn btn-sm btn-outline-danger"
-                                            onclick="deleteComment(<?php echo $comment['id']; ?>)"><i
-                                                class="bi bi-trash"></i></button>
-                                    </div>
-                                <?php endif; ?>
+                                    <img src="<?= $commentAvatarPath ?>" alt="Avatar" class="rounded-circle me-1"
+                                        style="width: 20px; height: 20px; object-fit: cover;">
+                                    <?= $commentAuthorDisplayName ?>
+                                    <?php if (isset($comment['role']) && $comment['role'] === 'admin'): ?><span
+                                        class="badge bg-danger ms-1">Admin</span><?php endif; ?>
+                                </h6>
+                                <small
+                                    class="text-muted"><?php echo date('d/m/Y H:i', strtotime($comment['created_at'])); ?></small>
+                            </div>
+                            <p class="card-text"><?php echo nl2br(htmlspecialchars($comment['content'])); ?></p>
+                            <?php if (isLoggedIn() && ($_SESSION['user_id'] == $comment['user_id'] || isAdmin())): ?>
+                            <div class="btn-group mb-2">
+                                <button class="btn btn-sm btn-outline-primary"
+                                    onclick="editComment(<?php echo $comment['id']; ?>, '<?php echo addslashes($comment['content']); ?>')"><i
+                                        class="bi bi-pencil"></i></button>
+                                <button class="btn btn-sm btn-outline-danger"
+                                    onclick="deleteComment(<?php echo $comment['id']; ?>)"><i
+                                        class="bi bi-trash"></i></button>
+                            </div>
+                            <?php endif; ?>
 
-                                <!-- Replies Section -->
-                                <div id="replies-<?php echo $comment['id']; ?>" class="mt-3 ms-4">
-                                    <?php
+                            <!-- Replies Section -->
+                            <div id="replies-<?php echo $comment['id']; ?>" class="mt-3 ms-4">
+                                <?php
                                     $reply_limit = 5;
                                     // Gọi hàm getReplies để lấy danh sách trả lời cho bình luận hiện tại (theo id)
                                     $replies = getReplies($comment['id'], $reply_limit);
@@ -166,11 +166,11 @@
                                     while ($reply = mysqli_fetch_assoc($replies)):
                                         $shown_replies++;
                                     ?>
-                                        <div class="card mb-2">
-                                            <div class="card-body">
-                                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                                    <h6 class="card-subtitle text-muted d-flex align-items-center">
-                                                        <?php
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <h6 class="card-subtitle text-muted d-flex align-items-center">
+                                                <?php
                                                         // Hiển thị tên người trả lời (ưu tiên họ tên, nếu không có thì dùng username)
                                                         $replyAuthorDisplayName = htmlspecialchars($reply['username']);
                                                         if (!empty($reply['first_name']) && !empty($reply['last_name'])) {
@@ -183,63 +183,63 @@
                                                         // Lấy đường dẫn avatar của người trả lời (nếu không có thì dùng avatar mặc định)
                                                         $replyAvatarPath = $baseUrl . '/dist/avatars/' . htmlspecialchars($reply['avatar'] ?? 'default_avatar.png');
                                                         ?>
-                                                        <img src="<?= $replyAvatarPath ?>" alt="Avatar"
-                                                            class="rounded-circle me-1"
-                                                            style="width: 20px; height: 20px; object-fit: cover;">
-                                                        <?= $replyAuthorDisplayName ?>
-                                                        <?php if (isset($reply['role']) && $reply['role'] === 'admin'): ?><span
-                                                                class="badge bg-danger ms-1">Admin</span><?php endif; ?>
-                                                    </h6>
-                                                    <small
-                                                        class="text-muted"><?php echo date('d/m/Y H:i', strtotime($reply['created_at'])); ?></small>
-                                                </div>
-                                                <p class="card-text"><?php echo nl2br(htmlspecialchars($reply['content'])); ?>
-                                                </p>
-                                                <?php
+                                                <img src="<?= $replyAvatarPath ?>" alt="Avatar"
+                                                    class="rounded-circle me-1"
+                                                    style="width: 20px; height: 20px; object-fit: cover;">
+                                                <?= $replyAuthorDisplayName ?>
+                                                <?php if (isset($reply['role']) && $reply['role'] === 'admin'): ?><span
+                                                    class="badge bg-danger ms-1">Admin</span><?php endif; ?>
+                                            </h6>
+                                            <small
+                                                class="text-muted"><?php echo date('d/m/Y H:i', strtotime($reply['created_at'])); ?></small>
+                                        </div>
+                                        <p class="card-text"><?php echo nl2br(htmlspecialchars($reply['content'])); ?>
+                                        </p>
+                                        <?php
                                                 // Nếu là chủ trả lời hoặc admin thì hiển thị nút sửa/xóa
                                                 if (isLoggedIn() && ($_SESSION['user_id'] == $reply['user_id'] || isAdmin())): ?>
-                                                    <div class="btn-group">
-                                                        <button class="btn btn-sm btn-outline-primary"
-                                                            onclick="editComment(<?php echo $reply['id']; ?>, '<?php echo addslashes($reply['content']); ?>')"><i
-                                                                class="bi bi-pencil"></i></button>
-                                                        <button class="btn btn-sm btn-outline-danger"
-                                                            onclick="deleteComment(<?php echo $reply['id']; ?>)"><i
-                                                                class="bi bi-trash"></i></button>
-                                                    </div>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                    <?php endwhile; ?>
-                                    <?php if ($reply_count > $reply_limit): ?>
-                                        <button class="btn btn-link p-0"
-                                            onclick="showAllReplies(<?php echo $comment['id']; ?>, <?php echo $reply_limit; ?>)">Xem
-                                            thêm...</button>
-                                    <?php endif; ?>
-                                </div>
-
-                                <!-- Reply Form (Hidden by default) -->
-                                <div id="reply-form-<?php echo $comment['id']; ?>" class="mt-3 ms-4" style="display: none;">
-                                    <form method="POST" action="">
-                                        <input type="hidden" name="parent_id" value="<?php echo $comment['id']; ?>">
-                                        <div class="mb-3">
-                                            <textarea class="form-control" name="comment" rows="2" required
-                                                placeholder="Viết trả lời..."></textarea>
-                                        </div>
                                         <div class="btn-group">
-                                            <button type="submit" class="btn btn-primary btn-sm">Gửi trả lời</button>
-                                            <button type="button" class="btn btn-secondary btn-sm"
-                                                onclick="hideReplyForm(<?php echo $comment['id']; ?>)">Hủy</button>
+                                            <button class="btn btn-sm btn-outline-primary"
+                                                onclick="editComment(<?php echo $reply['id']; ?>, '<?php echo addslashes($reply['content']); ?>')"><i
+                                                    class="bi bi-pencil"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger"
+                                                onclick="deleteComment(<?php echo $reply['id']; ?>)"><i
+                                                    class="bi bi-trash"></i></button>
                                         </div>
-                                    </form>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
-
-                                <!-- Reply Button (luôn ở cuối cùng) -->
-                                <?php if (isLoggedIn()): ?>
-                                    <button class="btn btn-sm btn-outline-secondary mt-2"
-                                        onclick="showReplyForm(<?php echo $comment['id']; ?>)">Trả lời</button>
+                                <?php endwhile; ?>
+                                <?php if ($reply_count > $reply_limit): ?>
+                                <button class="btn btn-link p-0"
+                                    onclick="showAllReplies(<?php echo $comment['id']; ?>, <?php echo $reply_limit; ?>)">Xem
+                                    thêm...</button>
                                 <?php endif; ?>
                             </div>
+
+                            <!-- Reply Form (Hidden by default) -->
+                            <div id="reply-form-<?php echo $comment['id']; ?>" class="mt-3 ms-4" style="display: none;">
+                                <form method="POST" action="">
+                                    <input type="hidden" name="parent_id" value="<?php echo $comment['id']; ?>">
+                                    <div class="mb-3">
+                                        <textarea class="form-control" name="comment" rows="2" required
+                                            placeholder="Viết trả lời..."></textarea>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="submit" class="btn btn-primary btn-sm">Gửi trả lời</button>
+                                        <button type="button" class="btn btn-secondary btn-sm"
+                                            onclick="hideReplyForm(<?php echo $comment['id']; ?>)">Hủy</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Reply Button (luôn ở cuối cùng) -->
+                            <?php if (isLoggedIn()): ?>
+                            <button class="btn btn-sm btn-outline-secondary mt-2"
+                                onclick="showReplyForm(<?php echo $comment['id']; ?>)">Trả lời</button>
+                            <?php endif; ?>
                         </div>
+                    </div>
                     <?php endwhile; ?>
                 </div>
             </div>
@@ -304,9 +304,9 @@
                             <select class="form-select" id="edit_topic" name="topic_id">
                                 <option value="">-- Chọn chủ đề --</option>
                                 <?php foreach ($topics as $topic): ?>
-                                    <option value="<?php echo $topic['id']; ?>">
-                                        <?php echo htmlspecialchars($topic['name']); ?>
-                                    </option>
+                                <option value="<?php echo $topic['id']; ?>">
+                                    <?php echo htmlspecialchars($topic['name']); ?>
+                                </option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -334,201 +334,202 @@
     <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.7/quill.js"></script>
     <script>
-        // Khởi tạo trình soạn thảo QuillJS cho phần chỉnh sửa bài viết
-        document.addEventListener('DOMContentLoaded', function() {
-            quillEditPost = new Quill('#quill-edit-post', {
-                theme: 'snow',
-                modules: {
-                    toolbar: {
-                        container: [
-                            [{
-                                header: [1, 2, 3, false]
-                            }],
-                            ['bold', 'italic', 'underline', 'strike'],
-                            ['blockquote', 'code-block'],
-                            [{
-                                list: 'ordered'
-                            }, {
-                                list: 'bullet'
-                            }],
-                            [{
-                                script: 'sub'
-                            }, {
-                                script: 'super'
-                            }],
-                            [{
-                                indent: '-1'
-                            }, {
-                                indent: '+1'
-                            }],
-                            [{
-                                direction: 'rtl'
-                            }],
-                            [{
-                                color: []
-                            }, {
-                                background: []
-                            }],
-                            [{
-                                align: []
-                            }],
-                            ['link', 'image'],
-                            ['clean']
-                        ],
-                        handlers: {
-                            image: imageHandlerEditPost // Gán handler cho nút chèn ảnh
-                        }
+    // Khởi tạo trình soạn thảo QuillJS cho phần chỉnh sửa bài viết
+    document.addEventListener('DOMContentLoaded', function() {
+        quillEditPost = new Quill('#quill-edit-post', {
+            theme: 'snow',
+            modules: {
+                toolbar: {
+                    container: [
+                        [{
+                            header: [1, 2, 3, false]
+                        }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote', 'code-block'],
+                        [{
+                            list: 'ordered'
+                        }, {
+                            list: 'bullet'
+                        }],
+                        [{
+                            script: 'sub'
+                        }, {
+                            script: 'super'
+                        }],
+                        [{
+                            indent: '-1'
+                        }, {
+                            indent: '+1'
+                        }],
+                        [{
+                            direction: 'rtl'
+                        }],
+                        [{
+                            color: []
+                        }, {
+                            background: []
+                        }],
+                        [{
+                            align: []
+                        }],
+                        ['link', 'image'],
+                        ['clean']
+                    ],
+                    handlers: {
+                        image: imageHandlerEditPost // Gán handler cho nút chèn ảnh
                     }
                 }
-            });
-            // Xử lý sự kiện dán ảnh từ clipboard vào editor
-            quillEditPost.root.addEventListener('paste', function(e) {
-                var clipboardData = e.clipboardData || window.clipboardData;
-                if (clipboardData && clipboardData.items) {
-                    for (var i = 0; i < clipboardData.items.length; i++) {
-                        var item = clipboardData.items[i];
-                        if (item.type.indexOf('image') !== -1) {
-                            e.preventDefault();
-                            var file = item.getAsFile();
-                            uploadImageToServerEditPost(file, function(url) {
-                                var range = quillEditPost.getSelection();
-                                quillEditPost.insertEmbed(range.index, 'image', url);
-                            });
-                        }
-                    }
-                }
-            });
-            // Xử lý sự kiện kéo-thả ảnh vào editor
-            quillEditPost.root.addEventListener('drop', function(e) {
-                if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) {
-                    e.preventDefault();
-                    var file = e.dataTransfer.files[0];
-                    if (file && file.type.indexOf('image') !== -1) {
+            }
+        });
+        // Xử lý sự kiện dán ảnh từ clipboard vào editor
+        quillEditPost.root.addEventListener('paste', function(e) {
+            var clipboardData = e.clipboardData || window.clipboardData;
+            if (clipboardData && clipboardData.items) {
+                for (var i = 0; i < clipboardData.items.length; i++) {
+                    var item = clipboardData.items[i];
+                    if (item.type.indexOf('image') !== -1) {
+                        e.preventDefault();
+                        var file = item.getAsFile();
                         uploadImageToServerEditPost(file, function(url) {
                             var range = quillEditPost.getSelection();
                             quillEditPost.insertEmbed(range.index, 'image', url);
                         });
                     }
                 }
-            });
+            }
         });
-        // Hàm xử lý khi người dùng bấm nút chèn ảnh trên thanh công cụ QuillJS
-        function imageHandlerEditPost() {
-            var input = document.createElement('input');
-            input.setAttribute('type', 'file');
-            input.setAttribute('accept', 'image/*');
-            input.click();
-            input.onchange = function() {
-                var file = input.files[0];
-                if (file) {
+        // Xử lý sự kiện kéo-thả ảnh vào editor
+        quillEditPost.root.addEventListener('drop', function(e) {
+            if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) {
+                e.preventDefault();
+                var file = e.dataTransfer.files[0];
+                if (file && file.type.indexOf('image') !== -1) {
                     uploadImageToServerEditPost(file, function(url) {
                         var range = quillEditPost.getSelection();
                         quillEditPost.insertEmbed(range.index, 'image', url);
                     });
                 }
-            };
-        }
-        // Hàm upload ảnh lên server khi dán/kéo-thả/chọn ảnh
-        function uploadImageToServerEditPost(file, callback) {
-            var formData = new FormData();
-            formData.append('image', file);
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '<?= $baseUrl ?>/src/views/post/upload_image.php', true);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    var res = JSON.parse(xhr.responseText);
-                    if (res.url) {
-                        callback(res.url); // Trả về url ảnh đã upload thành công
-                    } else {
-                        alert(res.error || 'Lỗi upload ảnh');
-                    }
-                } else {
-                    alert('Lỗi upload ảnh');
-                }
-            };
-            xhr.send(formData);
-        }
-        // Hàm xử lý khi submit form chỉnh sửa bài viết:
-        function submitEditPostQuill() {
-            var html = quillEditPost.root.innerHTML.replace(/<img[^>]+src=["']data:image\/(png|jpeg|jpg|gif|webp);base64,[^"']+["'][^>]*>/gi, '');
-            document.getElementById('hidden_new_content').value = html;
-            var topicIdSelect = document.getElementById('edit_topic');
-            var selectedTopicId = topicIdSelect.value;
-            var topicIdInput = document.createElement('input');
-            topicIdInput.setAttribute('type', 'hidden');
-            topicIdInput.setAttribute('name', 'topic_id');
-            topicIdInput.setAttribute('value', selectedTopicId);
-            document.querySelector('#editPostModal form').appendChild(topicIdInput);
-            return true;
-        }
-        // Hàm mở modal chỉnh sửa bài viết, nạp lại nội dung và chủ đề hiện tại vào editor và dropdown
-        function showEditPostModal() {
-            var modal = new bootstrap.Modal(document.getElementById('editPostModal'));
-            modal.show();
-            setTimeout(function() {
-                quillEditPost.root.innerHTML = <?php echo json_encode($post['content']); ?>;
-                var currentTopicId = <?php echo json_encode($post['topic_id']); ?>;
-                if (currentTopicId) {
-                    document.getElementById('edit_topic').value = currentTopicId;
-                }
-            }, 300);
-        }
-        // Hàm chia sẻ bài viết qua Web Share API hoặc copy link nếu không hỗ trợ
-        function sharePost() {
-            if (navigator.share) {
-                navigator.share({
-                    title: '<?php echo addslashes($post['title']); ?>',
-                    text: '<?php echo addslashes(mb_substr($post['content'], 0, 100)); ?>...',
-                    url: window.location.href
+            }
+        });
+    });
+    // Hàm xử lý khi người dùng bấm nút chèn ảnh trên thanh công cụ QuillJS
+    function imageHandlerEditPost() {
+        var input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+        input.onchange = function() {
+            var file = input.files[0];
+            if (file) {
+                uploadImageToServerEditPost(file, function(url) {
+                    var range = quillEditPost.getSelection();
+                    quillEditPost.insertEmbed(range.index, 'image', url);
                 });
+            }
+        };
+    }
+    // Hàm upload ảnh lên server khi dán/kéo-thả/chọn ảnh
+    function uploadImageToServerEditPost(file, callback) {
+        var formData = new FormData();
+        formData.append('image', file);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '<?= $baseUrl ?>/src/views/post/upload_image.php', true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var res = JSON.parse(xhr.responseText);
+                if (res.url) {
+                    callback(res.url); // Trả về url ảnh đã upload thành công
+                } else {
+                    alert(res.error || 'Lỗi upload ảnh');
+                }
             } else {
-                // Giải pháp dự phòng cho các trình duyệt không hỗ trợ Web Share API
-                const dummy = document.createElement('input');
-                document.body.appendChild(dummy);
-                dummy.value = window.location.href;
-                dummy.select();
-                document.execCommand('copy');
-                document.body.removeChild(dummy);
-                alert('Đã sao chép liên kết!');
+                alert('Lỗi upload ảnh');
             }
-        }
-
-        // Hàm mở modal sửa bình luận, nạp nội dung bình luận vào form
-        function editComment(commentId, content) {
-            document.getElementById('editCommentId').value = commentId;
-            document.getElementById('new_content').value = content;
-            new bootstrap.Modal(document.getElementById('editCommentModal')).show();
-        }
-
-        // Hàm xác nhận và gửi form xóa bình luận
-        function deleteComment(commentId) {
-            if (confirm('Bạn có chắc chắn muốn xóa bình luận này?')) {
-                document.getElementById('deleteCommentInput').value = commentId;
-                document.getElementById('deleteCommentForm').submit();
+        };
+        xhr.send(formData);
+    }
+    // Hàm xử lý khi submit form chỉnh sửa bài viết:
+    function submitEditPostQuill() {
+        var html = quillEditPost.root.innerHTML.replace(
+            /<img[^>]+src=["']data:image\/(png|jpeg|jpg|gif|webp);base64,[^"']+["'][^>]*>/gi, '');
+        document.getElementById('hidden_new_content').value = html;
+        var topicIdSelect = document.getElementById('edit_topic');
+        var selectedTopicId = topicIdSelect.value;
+        var topicIdInput = document.createElement('input');
+        topicIdInput.setAttribute('type', 'hidden');
+        topicIdInput.setAttribute('name', 'topic_id');
+        topicIdInput.setAttribute('value', selectedTopicId);
+        document.querySelector('#editPostModal form').appendChild(topicIdInput);
+        return true;
+    }
+    // Hàm mở modal chỉnh sửa bài viết, nạp lại nội dung và chủ đề hiện tại vào editor và dropdown
+    function showEditPostModal() {
+        var modal = new bootstrap.Modal(document.getElementById('editPostModal'));
+        modal.show();
+        setTimeout(function() {
+            quillEditPost.root.innerHTML = <?php echo json_encode($post['content']); ?>;
+            var currentTopicId = <?php echo json_encode($post['topic_id']); ?>;
+            if (currentTopicId) {
+                document.getElementById('edit_topic').value = currentTopicId;
             }
+        }, 300);
+    }
+    // Hàm chia sẻ bài viết qua Web Share API hoặc copy link nếu không hỗ trợ
+    function sharePost() {
+        if (navigator.share) {
+            navigator.share({
+                title: '<?php echo addslashes($post['title']); ?>',
+                text: '<?php echo addslashes(mb_substr($post['content'], 0, 100)); ?>...',
+                url: window.location.href
+            });
+        } else {
+            // Giải pháp dự phòng cho các trình duyệt không hỗ trợ Web Share API
+            const dummy = document.createElement('input');
+            document.body.appendChild(dummy);
+            dummy.value = window.location.href;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+            alert('Đã sao chép liên kết!');
         }
+    }
 
-        // Hàm hiển thị form trả lời cho một bình luận cụ thể
-        function showReplyForm(commentId) {
-            document.getElementById('reply-form-' + commentId).style.display = 'block';
-        }
+    // Hàm mở modal sửa bình luận, nạp nội dung bình luận vào form
+    function editComment(commentId, content) {
+        document.getElementById('editCommentId').value = commentId;
+        document.getElementById('new_content').value = content;
+        new bootstrap.Modal(document.getElementById('editCommentModal')).show();
+    }
 
-        // Hàm ẩn form trả lời cho một bình luận cụ thể
-        function hideReplyForm(commentId) {
-            document.getElementById('reply-form-' + commentId).style.display = 'none';
+    // Hàm xác nhận và gửi form xóa bình luận
+    function deleteComment(commentId) {
+        if (confirm('Bạn có chắc chắn muốn xóa bình luận này?')) {
+            document.getElementById('deleteCommentInput').value = commentId;
+            document.getElementById('deleteCommentForm').submit();
         }
+    }
 
-        // Hàm chuyển hướng để hiển thị tất cả các trả lời của một bình luận (phân trang replies)
-        function showAllReplies(commentId, limit) {
-            window.location.href = window.location.pathname + window.location.search + '&show_all_replies=' + commentId;
-        }
+    // Hàm hiển thị form trả lời cho một bình luận cụ thể
+    function showReplyForm(commentId) {
+        document.getElementById('reply-form-' + commentId).style.display = 'block';
+    }
 
-        // Hàm xác nhận và gửi form xóa bài viết
-        function confirmDeletePost() {
-            if (confirm('Bạn có chắc chắn muốn xóa bài viết này?')) {
-                document.getElementById('deletePostForm').submit();
-            }
+    // Hàm ẩn form trả lời cho một bình luận cụ thể
+    function hideReplyForm(commentId) {
+        document.getElementById('reply-form-' + commentId).style.display = 'none';
+    }
+
+    // Hàm chuyển hướng để hiển thị tất cả các trả lời của một bình luận (phân trang replies)
+    function showAllReplies(commentId, limit) {
+        window.location.href = window.location.pathname + window.location.search + '&show_all_replies=' + commentId;
+    }
+
+    // Hàm xác nhận và gửi form xóa bài viết
+    function confirmDeletePost() {
+        if (confirm('Bạn có chắc chắn muốn xóa bài viết này?')) {
+            document.getElementById('deletePostForm').submit();
         }
+    }
     </script>
 </body>
 

@@ -30,12 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user_id = $_SESSION['user_id'];
         $post_id = $model->addPost($user_id, $title, $content, $topic_id);
         if ($post_id) {
-            header("Location: post.php?id=$post_id");
+            header("Location: /post/$post_id");
             exit();
         } else {
             $error = 'Đăng bài thất bại';
         }
     }
 }
-
-?>

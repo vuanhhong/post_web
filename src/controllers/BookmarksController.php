@@ -4,20 +4,26 @@ require_once __DIR__ . '/../models/BookmarksModel.php';
 
 $user_id = $_SESSION['user_id'] ?? 0;
 if (!$user_id) {
-    header('Location: ' . $baseUrl . '/src/views/auth/login.php');
+    header('Location: /login');
     exit;
 }
 
 $model = new BookmarksModel($conn);
 
-// Xử lý xóa bookmark
+$success = '';
+$error = '';
+
+// Xử lý xóa bookmark (không redirect, chỉ cập nhật danh sách để view hiển thị lại)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_post_id'])) {
-    $model->deleteBookmark((int) $_POST['delete_post_id'], $user_id);
-    header('Location: my_bookmarks.php');
-    exit();
+    $deleted = $model->deleteBookmark((int) $_POST['delete_post_id'], $user_id);
+    if ($deleted) {
+        $success = 'Đã hủy lưu bài viết.';
+    } else {
+        $error = 'Xóa bài viết thất bại, vui lòng thử lại.';
+    }
 }
 
-// Lấy danh sách bookmarks
+// Lấy danh sách bookmarks (cập nhật sau khi xóa nếu có)
 $bookmarks = $model->getUserBookmarks($user_id);
 
 // Lấy thông tin người dùng

@@ -16,7 +16,7 @@ class AdminUserModel
         $condition = '';
         if ($search) {
             $escaped = mysqli_real_escape_string($this->conn, $search);
-            $condition = " WHERE username LIKE '%$escaped%' OR email LIKE '%$escaped%'";
+            $condition = " WHERE username LIKE '%$escaped%'";
         }
         $sql = "SELECT id, username, email, role, created_at, first_name, last_name, avatar
                 FROM users
@@ -32,7 +32,7 @@ class AdminUserModel
         $condition = '';
         if ($search) {
             $escaped = mysqli_real_escape_string($this->conn, $search);
-            $condition = " WHERE username LIKE '%$escaped%' OR email LIKE '%$escaped%'";
+            $condition = " WHERE username LIKE '%$escaped%'";
         }
         $sql = "SELECT COUNT(*) as total FROM users $condition";
         $result = mysqli_query($this->conn, $sql);

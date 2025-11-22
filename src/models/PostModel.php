@@ -16,7 +16,7 @@ class PostModel
         $conditions = [];
         if (!empty($search_term)) {
             $search_term = mysqli_real_escape_string($this->conn, $search_term);
-            $conditions[] = "(p.title LIKE '%$search_term%' OR p.content LIKE '%$search_term%' OR t.name LIKE '%$search_term%')";
+            $conditions[] = "(p.title LIKE '%$search_term%' OR t.name LIKE '%$search_term%')";
         }
         if ($topic_id !== null) {
             $topic_id = (int) $topic_id;
@@ -41,7 +41,7 @@ class PostModel
         $conditions = [];
         if (!empty($search_term)) {
             $search_term = mysqli_real_escape_string($this->conn, $search_term);
-            $conditions[] = "(p.title LIKE '%$search_term%' OR p.content LIKE '%$search_term%' OR t.name LIKE '%$search_term%')";
+            $conditions[] = "(p.title LIKE '%$search_term%' OR t.name LIKE '%$search_term%')";
         }
         if ($topic_id !== null) {
             $topic_id = (int) $topic_id;
@@ -52,7 +52,7 @@ class PostModel
         if ($conditions)
             $where = " WHERE " . implode(' AND ', $conditions);
 
-        $sql = "SELECT p.*, u.username, t.name as topic_name,
+        $sql = "SELECT p.*, u.username, u.avatar, t.name as topic_name,
                 (SELECT COUNT(*) FROM likes WHERE post_id = p.id AND type = 'like') as like_count,
                 (SELECT COUNT(*) FROM likes WHERE post_id = p.id AND type = 'dislike') as dislike_count,
                 (SELECT COUNT(*) FROM comments WHERE post_id = p.id) as comment_count
@@ -71,4 +71,3 @@ class PostModel
         return ceil($total_posts / $this->limit);
     }
 }
-?>

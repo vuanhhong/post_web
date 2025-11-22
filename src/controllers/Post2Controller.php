@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_post'])) {
             // Xóa bài viết khỏi database
             $delete_query = "DELETE FROM posts WHERE id = $post_id";
             if (mysqli_query($conn, $delete_query)) {
-                header('Location: /');
+                header('Location: /post_web/index/');
                 exit();
             } else {
                 $error = 'Xóa bài viết thất bại';
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
                 }
             }
 
-            header("Location: /post/$post_id");
+            header("Location: /post_web/src/views/post/post.php?id=$post_id");
             exit();
         } else {
             $error = 'Thêm bình luận thất bại';
@@ -304,7 +304,7 @@ if (isLoggedIn() && isset($_POST['bookmark_post'])) {
         mysqli_query($conn, "INSERT INTO bookmarks (user_id, post_id, created_at) VALUES ($user_id, $post_id, NOW())");
     }
     // Sau khi bookmark xong, reload lại trang để cập nhật giao diện
-    header("Location: /post/$post_id");
+    header("Location: /post_web/src/views/post/post.php?id=$post_id");
     exit();
 }
 

@@ -40,7 +40,8 @@
                                 <select name="topic_id" class="form-select border-0" style="max-width: 200px;">
                                     <option value="">Tất cả chủ đề</option>
                                     <?php foreach ($topics as $topic): ?>
-                                        <option value="<?php echo $topic['id']; ?>" <?php echo (isset($_GET['topic_id']) && $_GET['topic_id'] == $topic['id']) ? 'selected' : ''; ?>>
+                                        <option value="<?php echo $topic['id']; ?>"
+                                            <?php echo (isset($_GET['topic_id']) && $_GET['topic_id'] == $topic['id']) ? 'selected' : ''; ?>>
                                             <?php echo htmlspecialchars($topic['name'], ENT_QUOTES, 'UTF-8'); ?>
                                         </option>
                                     <?php endforeach; ?>

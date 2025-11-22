@@ -18,54 +18,47 @@
     <div class="container mt-5">
         <h2 class="mb-4 text-center">Bài viết đã lưu của bạn</h2>
 
-        <?php if (!empty($success)): ?>
-            <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
-        <?php endif; ?>
-        <?php if (!empty($error)): ?>
-            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
-        <?php endif; ?>
-
-        <?php if (!empty($bookmarks) && is_array($bookmarks)): ?>
-            <div class="row g-4">
-                <?php foreach ($bookmarks as $post): ?>
-                    <div class="col-md-4">
-                        <div class="card h-100 shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
-                                <p class="card-text">
-                                    <?php
+        <?php if ($result && mysqli_num_rows($result) > 0): ?>
+        <div class="row g-4">
+            <?php while ($post = mysqli_fetch_assoc($result)): ?>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= htmlspecialchars($post['title']) ?></h5>
+                        <p class="card-text">
+                            <?php
                                     $summary = mb_substr(strip_tags($post['content']), 0, 100);
                                     echo htmlspecialchars($summary . (mb_strlen(strip_tags($post['content'])) > 100 ? '...' : ''));
                                     ?>
-                                </p>
-                                <small class="text-muted">
-                                    Lưu bởi <strong><?= $userDisplayName ?></strong> ngày
-                                    <?= date('d/m/Y', strtotime($post['created_at'])) ?>
-                                </small>
-                            </div>
-                            <div class="card-footer bg-transparent d-flex justify-content-between align-items-center">
-                                <div>
-                                    <span class="me-3"><i class="bi bi-hand-thumbs-up"></i> <?= $post['like_count'] ?></span>
-                                    <span><i class="bi bi-hand-thumbs-down"></i> <?= $post['dislike_count'] ?></span>
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <a href="<?= $baseUrl ?>/post/<?= $post['id'] ?>" class="btn btn-primary btn-sm">Đọc
-                                        tiếp</a>
-                                    <form method="POST"
-                                        onsubmit="return confirm('Bạn có chắc chắn muốn hủy lưu bài viết này?');"
-                                        style="display:inline;">
-                                        <input type="hidden" name="delete_post_id" value="<?= $post['id'] ?>" />
-                                        <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-x-circle"></i>
-                                            Xóa</button>
-                                    </form>
-                                </div>
-                            </div>
+                        </p>
+                        <small class="text-muted">
+                            Lưu bởi <strong><?= $userDisplayName ?></strong> ngày
+                            <?= date('d/m/Y', strtotime($post['created_at'])) ?>
+                        </small>
+                    </div>
+                    <div class="card-footer bg-transparent d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="me-3"><i class="bi bi-hand-thumbs-up"></i> <?= $post['like_count'] ?></span>
+                            <span><i class="bi bi-hand-thumbs-down"></i> <?= $post['dislike_count'] ?></span>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="/post_web/src/views/post/post.php?id=<?= $post['id'] ?>"
+                                class="btn btn-primary btn-sm">Đọc tiếp</a>
+                            <form method="POST"
+                                onsubmit="return confirm('Bạn có chắc chắn muốn hủy lưu bài viết này?');"
+                                style="display:inline;">
+                                <input type="hidden" name="delete_post_id" value="<?= $post['id'] ?>" />
+                                <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-x-circle"></i>
+                                    Xóa</button>
+                            </form>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                </div>
             </div>
+            <?php endwhile; ?>
+        </div>
         <?php else: ?>
-            <div class="alert alert-info text-center">Bạn chưa có bài viết đã lưu nào.</div>
+        <div class="alert alert-info text-center">Bạn chưa có bài viết đã lưu nào.</div>
         <?php endif; ?>
     </div>
 

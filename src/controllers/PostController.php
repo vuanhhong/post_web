@@ -10,5 +10,4 @@ $model = new PostModel($conn);
 $total_posts = $model->countPosts($search_term, $topic_id);
 $total_pages = $model->getTotalPages($total_posts);
 $result = $model->getPosts($page, $search_term, $topic_id);
-
 ?>

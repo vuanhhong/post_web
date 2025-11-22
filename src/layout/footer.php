@@ -31,22 +31,23 @@
                     <li><a href="<?= $baseUrl ?>/index.php" class="text-light text-decoration-none"><i
                                 class="bi bi-house-door"></i> Trang chủ</a></li>
                     <?php if (isLoggedIn()): ?>
-                    <li><a href="<?= $baseUrl ?>/my_posts.php" class="text-light text-decoration-none"><i
+                    <li><a href="<?= $baseUrl ?>/src/views/post/my_posts.php" class="text-light text-decoration-none"><i
                                 class="bi bi-journal-text"></i> Bài đăng của tôi</a></li>
-                    <li><a href="<?= $baseUrl ?>/create_post.php" class="text-light text-decoration-none"><i
-                                class="bi bi-plus-square"></i> Đăng bài mới</a></li>
+                    <li><a href="<?= $baseUrl ?>/src/views/post/create_post.php"
+                            class="text-light text-decoration-none"><i class="bi bi-plus-square"></i> Đăng bài mới</a>
+                    </li>
                     <?php if (isAdmin()): ?>
-                    <li><a href="<?= $baseUrl ?>/admin/posts.php" class="text-light text-decoration-none"><i
+                    <li><a href="<?= $baseUrl ?>/src/views/admin/posts.php" class="text-light text-decoration-none"><i
                                 class="bi bi-gear"></i> Quản lý bài đăng</a></li>
-                    <li><a href="<?= $baseUrl ?>/admin/users.php" class="text-light text-decoration-none"><i
+                    <li><a href="<?= $baseUrl ?>/src/views/admin/users.php" class="text-light text-decoration-none"><i
                                 class="bi bi-people"></i> Quản lý người dùng</a></li>
                     <?php endif; ?>
-                    <li><a href="<?= $baseUrl ?>/logout.php" class="text-light text-decoration-none"><i
+                    <li><a href="<?= $baseUrl ?>/src/views/auth/logout.php" class="text-light text-decoration-none"><i
                                 class="bi bi-box-arrow-right"></i> Đăng xuất</a></li>
                     <?php else: ?>
-                    <li><a href="<?= $baseUrl ?>/login.php" class="text-light text-decoration-none"><i
+                    <li><a href="<?= $baseUrl ?>/src/views/auth/login.php" class="text-light text-decoration-none"><i
                                 class="bi bi-box-arrow-in-right"></i> Đăng nhập</a></li>
-                    <li><a href="<?= $baseUrl ?>/register.php" class="text-light text-decoration-none"><i
+                    <li><a href="<?= $baseUrl ?>/src/views/auth/register.php" class="text-light text-decoration-none"><i
                                 class="bi bi-person-plus"></i> Đăng ký</a></li>
                     <?php endif; ?>
                 </ul>

@@ -16,7 +16,7 @@ class AdminPostModel
         $condition = '';
         if ($search) {
             $escaped = mysqli_real_escape_string($this->conn, $search);
-            $condition = " WHERE p.title LIKE '%$escaped%' OR p.content LIKE '%$escaped%' OR t.name LIKE '%$escaped%'";
+            $condition = " WHERE p.title LIKE '%$escaped%' OR t.name LIKE '%$escaped%'";
         }
         $sql = "SELECT COUNT(*) as total FROM posts p LEFT JOIN topics t ON p.topic_id = t.id" . $condition;
         $result = mysqli_query($this->conn, $sql);
@@ -29,7 +29,7 @@ class AdminPostModel
         $condition = '';
         if ($search) {
             $escaped = mysqli_real_escape_string($this->conn, $search);
-            $condition = " WHERE p.title LIKE '%$escaped%' OR p.content LIKE '%$escaped%' OR t.name LIKE '%$escaped%'";
+            $condition = " WHERE p.title LIKE '%$escaped%' OR t.name LIKE '%$escaped%'";
         } else {
             $condition = " WHERE 1=1";
         }

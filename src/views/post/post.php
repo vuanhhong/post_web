@@ -181,7 +181,7 @@
                                                             $replyAuthorDisplayName = htmlspecialchars($reply['last_name']);
                                                         }
                                                         // Lấy đường dẫn avatar của người trả lời (nếu không có thì dùng avatar mặc định)
-                                                        $replyAvatarPath = $baseUrl . '/dist/avatars/' . htmlspecialchars($reply['avatar'] ?? 'default_avatar.png');
+                                                        $replyAvatarPath = $baseUrl . '/src/assets/dist/avatars/' . htmlspecialchars($reply['avatar'] ?? 'default_avatar.png');
                                                         ?>
                                                 <img src="<?= $replyAvatarPath ?>" alt="Avatar"
                                                     class="rounded-circle me-1"
